@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cef90226-3045-4e31-981c-866634d6b841">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT a.idarticulo, a.art_cantidad, ct.cat_nombre, cf.cla_nombre, t.tip_nombre,
+       c.cal_nombre, mc.mar_nombre, m.mod_nombre, a.art_cantidad, a.idclasificaciones, 
+       a.idtipo, a.idcalibres, a.idmodelos
+FROM articulo a
+JOIN modelos m ON a.idmodelos = m.idmodelos
+JOIN marcas mc ON m.idmarcas = mc.idmarcas
+JOIN tipos t ON a.idtipo = t.idtipos
+JOIN calibres c ON a.idcalibres = c.idcalibres
+JOIN clasificaciones cf ON a.idclasificaciones = cf.idclasificaciones
+JOIN categorias ct ON cf.idcategorias = ct.idcategorias
+WHERE ct.idcategorias = 2;]]>
+	</queryString>
+	<field name="idarticulo" class="java.lang.Integer"/>
+	<field name="art_cantidad" class="java.lang.Integer"/>
+	<field name="cat_nombre" class="java.lang.String"/>
+	<field name="cla_nombre" class="java.lang.String"/>
+	<field name="tip_nombre" class="java.lang.String"/>
+	<field name="mar_nombre" class="java.lang.String"/>
+	<field name="mod_nombre" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="14" y="2" width="100" height="20" uuid="916d6868-c794-4fb8-9b98-d90ffe0d276d"/>
+				<text><![CDATA[idarticulo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="172" y="2" width="100" height="20" uuid="b6909a20-b4dd-4ad5-b86e-c86d561194a0"/>
+				<text><![CDATA[art_cantidad]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="14" y="18" width="100" height="20" uuid="3f376251-67ff-4cb7-acd7-197c0a66aa0a"/>
+				<textFieldExpression><![CDATA[$F{idarticulo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="172" y="29" width="100" height="20" uuid="2dfc50c8-e47e-4d0b-ae31-feaf0488b0c1"/>
+				<textFieldExpression><![CDATA[$F{art_cantidad}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
