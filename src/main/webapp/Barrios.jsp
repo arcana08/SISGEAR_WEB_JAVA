@@ -23,6 +23,9 @@
                         <button class="btn btn-success btn-add" id="nuevo" data-bs-toggle="modal" data-bs-target="#exampleModal1" title="Agregar Nuevo">
                             <i class="fas fa-plus"></i> AGREGAR
                         </button>
+                        <a class="btn btn-primary btn-print" id="imprimir" href="reportesv/Rbarrios.jsp" target="_blank" title="Imprimir Reporte">
+                            <i class="fas fa-print"></i> IMPRIMIR
+                        </a>
                     </div>
                 </div>
             </div>
@@ -138,6 +141,8 @@
     </div>
 </body>
 <script src="js/jquery-3.7.1.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>

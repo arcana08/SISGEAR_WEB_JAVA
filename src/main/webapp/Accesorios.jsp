@@ -22,9 +22,9 @@
                     <button class="btn btn-success btn-add me-2" id="nuevo" data-bs-toggle="modal" data-bs-target="#exampleModal1" title="Agregar Nuevo">
                         <i class="fas fa-plus"></i> AGREGAR
                     </button>
-                    <button class="btn btn-primary btn-print" id="imprimir" href = "reportesV/accesorios.jsp" title="Imprimir Reporte">
+                    <a class="btn btn-primary btn-print" id="imprimir" href="reportesv/Raccesorios.jsp" target="_blank" title="Imprimir Reporte">
                         <i class="fas fa-print"></i> IMPRIMIR
-                    </button>
+                    </a>
                 </div>
             </div>
             <table class="table table-striped" id="resultado">
@@ -259,224 +259,226 @@
     </div>
 </body>
 <script src="js/jquery-3.7.1.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 
 <script>
-                $(document).ready(function () {
+    $(document).ready(function () {
+        rellenardatos();
+        rellenardatosp();
+        rellenardatospp();
+        rellenardatosc();
+        rellenardatosm();
+
+        $("#boton").on('click', function () {
+            procesarFormulario();
+        });
+        $("#nuevo").on('click', function () {
+            resetFormulario();
+        });
+        $("#btneliminar").on('click', function () {
+            eliminarRegistro();
+        });
+
+        $("#buscador").on('keyup', function () {
+            var value = $(this).val().toLowerCase();
+            $("#resultado tbody tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+            });
+        });
+
+        $("#buscadorp").on('keyup', function () {
+            var value = $(this).val().toLowerCase();
+            $("#resultadop tbody tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+            });
+        });
+        $("#buscadorc").on('keyup', function () {
+            var value = $(this).val().toLowerCase();
+            $("#resultadoc tbody tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+            });
+        });
+        $("#buscadorm").on('keyup', function () {
+            var value = $(this).val().toLowerCase();
+            $("#resultadom tbody tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+            });
+        });
+
+        $("#buscadort").on('keyup', function () {
+            var value = $(this).val().toLowerCase();
+            $("#resultadot tbody tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+            });
+        });
+    });
+
+    function rellenardatos() {
+        $.ajax({
+            data: {listar: 'listar'},
+            url: 'jsp/accesorios.jsp',
+            type: 'POST',
+            success: function (response) {
+                $("#resultado tbody").html(response);
+            }
+        });
+    }
+
+    function procesarFormulario() {
+        var nombre = $("#nombre").val().trim();
+        var clas = $("#clas").val().trim();
+        var tip = $("#tip").val().trim();
+        var cal = $("#cal").val().trim();
+        var mod = $("#mod").val().trim();
+        var tt = /^[a-zA-Z0-9 _ñÑ]+$/;
+        if (nombre === '' || clas === '' || tip === '' || cal === mod === '') {
+            $("#mensaje").html('<div class="alert alert-danger" role="alert">Por favor, completa todos los campos antes de enviar.</div>');
+            setTimeout(function () {
+                $("#mensaje").html("");
+            }, 2000);
+            return;
+        }
+        if (!tt.test(nombre)) {
+            $("#mensaje").html('<div class="alert alert-danger" role="alert">Por favor, utiliza solo caracteres alfanuméricos o guiones bajos</div>');
+            setTimeout(function () {
+                $("#mensaje").html("");
+            }, 3000);
+            return;
+        }
+        var formdata = $("#form").serialize();
+        $.ajax({
+            data: formdata,
+            url: 'jsp/accesorios.jsp',
+            type: 'post',
+            success: function (response) {
+                $("#mensaje").html(response);
+                if (response.indexOf("Los datos ya existen") !== -1) {
+                    setTimeout(function () {
+                        $("#mensaje").html("");
+                    }, 2000);
+                } else {
                     rellenardatos();
-                    rellenardatosp();
-                    rellenardatospp();
-                    rellenardatosc();
-                    rellenardatosm();
+                    resetFormulario();
+                    setTimeout(function () {
+                        $("#exampleModal1").modal('hide');
+                        $("#mensaje").html("");
+                    }, 2000);
+                }
+            }
+        });
+    }
 
-                    $("#boton").on('click', function () {
-                        procesarFormulario();
-                    });
-                    $("#nuevo").on('click', function () {
-                        resetFormulario();
-                    });
-                    $("#btneliminar").on('click', function () {
-                        eliminarRegistro();
-                    });
+    function eliminarRegistro() {
+        var listare = $("#listare").val().trim();
+        var pk = $("#iedit").val().trim();
+        $.ajax({
+            data: {listar: listare, pk: pk},
+            url: 'jsp/accesorios.jsp',
+            type: 'post',
+            success: function (response) {
+                $("#mensaje2").html(response);
+                if (response.indexOf("Los datos son utilizados en otra tabla") !== -1) {
+                    setTimeout(function () {
+                        $("#mensaje2").html("");
+                    }, 3000);
+                } else {
+                    rellenardatos();
+                    setTimeout(function () {
+                        $("#exampleModal").modal('hide');
+                        $("#mensaje2").html("");
+                    }, 2000);
+                }
+            }
+        });
+    }
 
-                    $("#buscador").on('keyup', function () {
-                        var value = $(this).val().toLowerCase();
-                        $("#resultado tbody tr").filter(function () {
-                            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-                        });
-                    });
+    function resetFormulario() {
+        $("#listar").val("cargar");
+        $("#pkid").val("");
+        $("#nombre").val("");
+        $("#clas").val("");
+        $("#nclas").val("");
+        $("#tip").val("");
+        $("#ntip").val("");
+        $("#cal").val("");
+        $("#ncal").val("");
+        $("#mod").val("");
+        $("#nmod").val("");
+    }
 
-                    $("#buscadorp").on('keyup', function () {
-                        var value = $(this).val().toLowerCase();
-                        $("#resultadop tbody tr").filter(function () {
-                            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-                        });
-                    });
-                    $("#buscadorc").on('keyup', function () {
-                        var value = $(this).val().toLowerCase();
-                        $("#resultadoc tbody tr").filter(function () {
-                            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-                        });
-                    });
-                    $("#buscadorm").on('keyup', function () {
-                        var value = $(this).val().toLowerCase();
-                        $("#resultadom tbody tr").filter(function () {
-                            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-                        });
-                    });
-
-                    $("#buscadort").on('keyup', function () {
-                        var value = $(this).val().toLowerCase();
-                        $("#resultadot tbody tr").filter(function () {
-                            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-                        });
-                    });
-                });
-
-                function rellenardatos() {
-                    $.ajax({
-                        data: {listar: 'listar'},
-                        url: 'jsp/accesorios.jsp',
-                        type: 'POST',
-                        success: function (response) {
-                            $("#resultado tbody").html(response);
-                        }
-                    });
-                }
-
-                function procesarFormulario() {
-                    var nombre = $("#nombre").val().trim();
-                    var clas = $("#clas").val().trim();
-                    var tip = $("#tip").val().trim();
-                    var cal = $("#cal").val().trim();
-                    var mod = $("#mod").val().trim();
-                    var tt = /^[a-zA-Z0-9 _ñÑ]+$/;
-                    if (nombre === '' || clas === '' || tip === '' || cal === mod === '') {
-                        $("#mensaje").html('<div class="alert alert-danger" role="alert">Por favor, completa todos los campos antes de enviar.</div>');
-                        setTimeout(function () {
-                            $("#mensaje").html("");
-                        }, 2000);
-                        return;
-                    }
-                    if (!tt.test(nombre)) {
-                        $("#mensaje").html('<div class="alert alert-danger" role="alert">Por favor, utiliza solo caracteres alfanuméricos o guiones bajos</div>');
-                        setTimeout(function () {
-                            $("#mensaje").html("");
-                        }, 3000);
-                        return;
-                    }
-                    var formdata = $("#form").serialize();
-                    $.ajax({
-                        data: formdata,
-                        url: 'jsp/accesorios.jsp',
-                        type: 'post',
-                        success: function (response) {
-                            $("#mensaje").html(response);
-                            if (response.indexOf("Los datos ya existen") !== -1) {
-                                setTimeout(function () {
-                                    $("#mensaje").html("");
-                                }, 2000);
-                            } else {
-                                rellenardatos();
-                                resetFormulario();
-                                setTimeout(function () {
-                                    $("#exampleModal1").modal('hide');
-                                    $("#mensaje").html("");
-                                }, 2000);
-                            }
-                        }
-                    });
-                }
-
-                function eliminarRegistro() {
-                    var listare = $("#listare").val().trim();
-                    var pk = $("#iedit").val().trim();
-                    $.ajax({
-                        data: {listar: listare, pk: pk},
-                        url: 'jsp/accesorios.jsp',
-                        type: 'post',
-                        success: function (response) {
-                            $("#mensaje2").html(response);
-                            if (response.indexOf("Los datos son utilizados en otra tabla") !== -1) {
-                                setTimeout(function () {
-                                    $("#mensaje2").html("");
-                                }, 3000);
-                            } else {
-                                rellenardatos();
-                                setTimeout(function () {
-                                    $("#exampleModal").modal('hide');
-                                    $("#mensaje2").html("");
-                                }, 2000);
-                            }
-                        }
-                    });
-                }
-
-                function resetFormulario() {
-                    $("#listar").val("cargar");
-                    $("#pkid").val("");
-                    $("#nombre").val("");
-                    $("#clas").val("");
-                    $("#nclas").val("");
-                    $("#tip").val("");
-                    $("#ntip").val("");
-                    $("#cal").val("");
-                    $("#ncal").val("");
-                    $("#mod").val("");
-                    $("#nmod").val("");
-                }
-
-                function rellenarjs(p, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10) {
-                    $("#pkid").val(p);
-                    $("#nombre").val(p1);
-                    $("#clas").val(p2);
-                    $("#nclas").val(p3);
-                    $("#tip").val(p4);
-                    $("#ntip").val(p5);
-                    $("#cal").val(p6);
-                    $("#ncal").val(p7);
-                    $("#mod").val(p8);
-                    $("#nmod").val(p9 + " - " + p10);
-                    $("#listar").val("modificar");
-                }
-                function rellenardatosp() {
-                    $.ajax({
-                        data: {listar: 'listarp'},
-                        url: 'jsp/accesorios.jsp',
-                        type: 'POST',
-                        success: function (response) {
-                            $("#resultadop tbody").html(response);
-                        }
-                    });
-                }
-                function rellenarjsp(a, b) {
-                    $("#clas").val(a);
-                    $("#nclas").val(b);
-                }
-                function rellenardatospp() {
-                    $.ajax({
-                        data: {listar: 'listart'},
-                        url: 'jsp/accesorios.jsp',
-                        type: 'POST',
-                        success: function (response) {
-                            $("#resultadot tbody").html(response);
-                        }
-                    });
-                }
-                function rellenarjst(a, b) {
-                    $("#tip").val(a);
-                    $("#ntip").val(b);
-                }
-                function rellenardatosc() {
-                    $.ajax({
-                        data: {listar: 'listarc'},
-                        url: 'jsp/accesorios.jsp',
-                        type: 'POST',
-                        success: function (response) {
-                            $("#resultadoc tbody").html(response);
-                        }
-                    });
-                }
-                function rellenarjsc(a, b) {
-                    $("#cal").val(a);
-                    $("#ncal").val(b);
-                }
-                function rellenardatosm() {
-                    $.ajax({
-                        data: {listar: 'listarm'},
-                        url: 'jsp/accesorios.jsp',
-                        type: 'POST',
-                        success: function (response) {
-                            $("#resultadom tbody").html(response);
-                        }
-                    });
-                }
-                function rellenarjsm(a, b, c) {
-                    $("#mod").val(a);
-                    $("#nmod").val(c + " - " + b);
-                }
+    function rellenarjs(p, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10) {
+        $("#pkid").val(p);
+        $("#nombre").val(p1);
+        $("#clas").val(p2);
+        $("#nclas").val(p3);
+        $("#tip").val(p4);
+        $("#ntip").val(p5);
+        $("#cal").val(p6);
+        $("#ncal").val(p7);
+        $("#mod").val(p8);
+        $("#nmod").val(p9 + " - " + p10);
+        $("#listar").val("modificar");
+    }
+    function rellenardatosp() {
+        $.ajax({
+            data: {listar: 'listarp'},
+            url: 'jsp/accesorios.jsp',
+            type: 'POST',
+            success: function (response) {
+                $("#resultadop tbody").html(response);
+            }
+        });
+    }
+    function rellenarjsp(a, b) {
+        $("#clas").val(a);
+        $("#nclas").val(b);
+    }
+    function rellenardatospp() {
+        $.ajax({
+            data: {listar: 'listart'},
+            url: 'jsp/accesorios.jsp',
+            type: 'POST',
+            success: function (response) {
+                $("#resultadot tbody").html(response);
+            }
+        });
+    }
+    function rellenarjst(a, b) {
+        $("#tip").val(a);
+        $("#ntip").val(b);
+    }
+    function rellenardatosc() {
+        $.ajax({
+            data: {listar: 'listarc'},
+            url: 'jsp/accesorios.jsp',
+            type: 'POST',
+            success: function (response) {
+                $("#resultadoc tbody").html(response);
+            }
+        });
+    }
+    function rellenarjsc(a, b) {
+        $("#cal").val(a);
+        $("#ncal").val(b);
+    }
+    function rellenardatosm() {
+        $.ajax({
+            data: {listar: 'listarm'},
+            url: 'jsp/accesorios.jsp',
+            type: 'POST',
+            success: function (response) {
+                $("#resultadom tbody").html(response);
+            }
+        });
+    }
+    function rellenarjsm(a, b, c) {
+        $("#mod").val(a);
+        $("#nmod").val(c + " - " + b);
+    }
 </script>
 
 <%@include file="footer.jsp" %>

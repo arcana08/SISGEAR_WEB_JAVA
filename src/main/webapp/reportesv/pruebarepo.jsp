@@ -12,8 +12,8 @@
                         File reportFile=new File(application.getRealPath("reportes/prueba_reporte.jasper"));
                         /**/
                         Map parametros=new HashMap();
-
-
+                        
+                        
                         
                         byte [] bytes= JasperRunManager.runReportToPdf(reportFile.getPath(), parametros,conn);
                         response.setContentType("application/pdf");

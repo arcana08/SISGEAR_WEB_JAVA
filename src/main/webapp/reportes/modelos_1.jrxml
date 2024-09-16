@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3d65f117-dc3f-4667-bcbc-4cd70a6bde42">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT mo.idmodelos, mo.mod_nombre, m.idmarcas, m.mar_nombre FROM modelos mo, marcas m where mo.idmarcas=m.idmarcas and mo.idmodelos=$P{id};]]>
+	</queryString>
+	<field name="idmodelos" class="java.lang.Integer"/>
+	<field name="mod_nombre" class="java.lang.String"/>
+	<field name="idmarcas" class="java.lang.Integer"/>
+	<field name="mar_nombre" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="230" y="28" width="111" height="20" uuid="30537a71-a24b-4902-a453-77ef2b63661f"/>
+				<text><![CDATA[LISTADO DE MARCAS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="26" splitType="Stretch">
+			<staticText>
+				<reportElement x="37" y="2" width="100" height="20" uuid="b68a6183-86db-4057-b72a-f3ccbc6dae58"/>
+				<text><![CDATA[CODIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="241" y="2" width="51" height="20" uuid="df526997-61a5-46c9-ba26-a2b9d82d4db1"/>
+				<text><![CDATA[MODELO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="433" y="2" width="52" height="20" uuid="ad26b0dd-1a51-4e1b-a751-1c9c0d89fce5"/>
+				<text><![CDATA[MARCAS ]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="37" y="0" width="100" height="20" uuid="f06a301e-993d-40b8-9e2c-06b7bc1c08f0"/>
+				<textFieldExpression><![CDATA[$F{idmodelos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="241" y="0" width="100" height="20" uuid="d61a5607-05d6-4f3d-a711-a90a855439bf"/>
+				<textFieldExpression><![CDATA[$F{mod_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="433" y="0" width="100" height="20" uuid="f4c80efc-c85e-4fd5-8182-5e7339ce2653"/>
+				<textFieldExpression><![CDATA[$F{mar_nombre}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="42" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

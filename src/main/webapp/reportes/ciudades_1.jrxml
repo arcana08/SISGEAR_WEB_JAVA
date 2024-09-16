@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1c1aaf6d-b7ee-40b7-bd07-cb0f495e128a">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT c.idciudades,c.ciu_nombre,d.iddepartamentos, d.dep_nombre,p.idpaises,p.pai_nombre from departamentos d, ciudades c,paises p where d.idpaises=p.idpaises and c.iddepartamentos=d.iddepartamentos and c.idciudades=$P{id};]]>
+	</queryString>
+	<field name="idciudades" class="java.lang.Integer"/>
+	<field name="ciu_nombre" class="java.lang.String"/>
+	<field name="iddepartamentos" class="java.lang.Integer"/>
+	<field name="dep_nombre" class="java.lang.String"/>
+	<field name="idpaises" class="java.lang.Integer"/>
+	<field name="pai_nombre" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="43" splitType="Stretch">
+			<staticText>
+				<reportElement x="217" y="0" width="121" height="20" uuid="d280ece5-3a77-43f3-93a9-d1e64915e231"/>
+				<text><![CDATA[LISTADO DE CIUDADES]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="37" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="53" height="20" uuid="aa37ee9a-8073-451b-a219-49659d32ac92"/>
+				<text><![CDATA[CODIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="129" y="0" width="100" height="20" uuid="0fae5e7e-3e03-437d-b0ff-d4b41eeba08d"/>
+				<text><![CDATA[CIUDAD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="292" y="0" width="100" height="20" uuid="569ce283-cc40-40c6-bcc1-ebb20d75b921"/>
+				<text><![CDATA[DEPARTAMENTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="451" y="0" width="100" height="20" uuid="3a038956-5d90-4ebf-9f75-10a3c2d79811"/>
+				<text><![CDATA[PAIS]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="41" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="53" height="20" uuid="ebff905b-7a44-45ba-bd4f-8dd5ebdd3cf4"/>
+				<textFieldExpression><![CDATA[$F{idciudades}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="129" y="0" width="100" height="41" uuid="dc5cca54-e01e-49f7-9db9-bab3f7861576"/>
+				<textFieldExpression><![CDATA[$F{ciu_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="292" y="0" width="100" height="41" uuid="781faf24-a676-465e-b74e-443e7859d5d5"/>
+				<textFieldExpression><![CDATA[$F{dep_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="451" y="0" width="100" height="41" uuid="268063d7-9d3d-48f2-b585-05b824ac1b0e"/>
+				<textFieldExpression><![CDATA[$F{pai_nombre}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

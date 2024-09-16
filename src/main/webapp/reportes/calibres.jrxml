@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5ec9af4c-f43b-42ad-82d1-24b8ada9924d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT * FROM calibres;]]>
+	</queryString>
+	<field name="idcalibres" class="java.lang.Integer"/>
+	<field name="cal_nombre" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="45" splitType="Stretch">
+			<staticText>
+				<reportElement x="220" y="0" width="126" height="20" uuid="42d2c8e8-905f-4fd4-820e-3258713eaa1b"/>
+				<text><![CDATA[LISTADO DE CALIBRES]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="25" y="2" width="100" height="20" uuid="ca6f8b80-3d24-44e1-b608-eeb3ecd62657"/>
+				<text><![CDATA[CODIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="204" y="2" width="100" height="20" uuid="db993640-8500-442e-ba7a-7d777e1e244c"/>
+				<text><![CDATA[CALIBRE]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="34" splitType="Stretch">
+			<textField>
+				<reportElement x="25" y="2" width="100" height="20" uuid="992ee49a-aa4c-4766-b560-7c6a128791fa"/>
+				<textFieldExpression><![CDATA[$F{idcalibres}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="204" y="1" width="100" height="33" uuid="9d860e23-b403-424d-9d53-5f165e9c73b3"/>
+				<textFieldExpression><![CDATA[$F{cal_nombre}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

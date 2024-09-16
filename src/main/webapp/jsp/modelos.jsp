@@ -13,7 +13,12 @@ if (request.getParameter("listar").equals("listar")) {
     <td><% out.print(rs.getString(2)); %></td>
     <td><% out.print(rs.getString(4)); %></td>
     <td><i class="fa fa-edit" style="color:green" data-bs-toggle="modal" data-bs-target="#exampleModal1" onclick="rellenarjs('<% out.print(rs.getString(1)); %>', '<% out.print(rs.getString(2)); %>', '<% out.print(rs.getString(3)); %>', '<% out.print(rs.getString(4)); %>')"></i>
-        <i class="fa fa-trash" style="color:red" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="$('#iedit').val('<% out.print(rs.getString(1)); %>')"></i></td>
+        <i class="fa fa-trash" style="color:red" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="$('#iedit').val('<% out.print(rs.getString(1)); %>')"></i>
+        <button class="btn btn-success btn-add" 
+                onclick="window.open('reportesv/Rmodelos_1.jsp?id=<% out.print(rs.getString(1)); %>', '_blank')">
+            <i class="fas fa-print"></i>
+        </button>
+    </td>
 </tr>
 <%
         }

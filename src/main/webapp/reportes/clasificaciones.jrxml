@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2c000d3a-76df-40fb-98bf-8276cce378fd">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT cl.idclasificaciones, cl.cla_nombre, c.idcategorias, c.cat_nombre FROM clasificaciones cl, categorias c where cl.idcategorias=c.idcategorias;]]>
+	</queryString>
+	<field name="idclasificaciones" class="java.lang.Integer"/>
+	<field name="cla_nombre" class="java.lang.String"/>
+	<field name="idcategorias" class="java.lang.Integer"/>
+	<field name="cat_nombre" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="190" y="21" width="165" height="20" uuid="b56be501-817b-4d2d-aa4f-d62329b39b64"/>
+				<text><![CDATA[LISTADO DE CLASIFICACIONES ]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="2" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="26" splitType="Stretch">
+			<staticText>
+				<reportElement x="434" y="0" width="100" height="20" uuid="816e9d22-5533-4a39-a1d8-67908d18b982"/>
+				<text><![CDATA[CATEGORIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="231" y="0" width="100" height="20" uuid="9b8bf856-632b-4d38-ac24-6a7737a95fcf"/>
+				<text><![CDATA[CLASIFICACION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="24" y="0" width="100" height="20" uuid="dd43342f-3a72-4979-8583-8ca634a72ab4"/>
+				<text><![CDATA[CODIGO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="26" splitType="Stretch">
+			<textField>
+				<reportElement x="434" y="3" width="100" height="20" uuid="b54a5a4f-7b21-4143-992c-6ebaefac31f7"/>
+				<textFieldExpression><![CDATA[$F{cat_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="231" y="0" width="100" height="20" uuid="3fa6d3db-a3fd-4aa3-b47a-1df354b05e0e"/>
+				<textFieldExpression><![CDATA[$F{cla_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="24" y="3" width="100" height="20" uuid="13f3ec84-8da5-4280-9b4b-2821dee87dcf"/>
+				<textFieldExpression><![CDATA[$F{idclasificaciones}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

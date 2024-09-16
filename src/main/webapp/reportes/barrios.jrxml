@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="24c8c876-2cde-4ba2-b3fb-d1c17fc71458">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT b.idbarrios, b.barr_nombre, c.idciudades,c.ciu_nombre,d.iddepartamentos, d.dep_nombre,p.idpaises,p.pai_nombre from departamentos d, ciudades c,paises p, barrios b where d.idpaises=p.idpaises and c.iddepartamentos=d.iddepartamentos and b.idciudades=c.idciudades;]]>
+	</queryString>
+	<field name="idbarrios" class="java.lang.Integer"/>
+	<field name="barr_nombre" class="java.lang.String"/>
+	<field name="idciudades" class="java.lang.Integer"/>
+	<field name="ciu_nombre" class="java.lang.String"/>
+	<field name="iddepartamentos" class="java.lang.Integer"/>
+	<field name="dep_nombre" class="java.lang.String"/>
+	<field name="idpaises" class="java.lang.Integer"/>
+	<field name="pai_nombre" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="43" splitType="Stretch">
+			<staticText>
+				<reportElement x="218" y="0" width="117" height="20" uuid="3575ac14-19cf-4f04-bd96-79faee22ac51"/>
+				<text><![CDATA[LISTADO DE BARRIOS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="1" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="48" height="20" uuid="48da8de8-e44c-4b0a-8a48-8261f6fda143"/>
+				<text><![CDATA[CODIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="66" y="2" width="76" height="20" uuid="1782d4ac-2b0c-43e8-b1df-6418a193f0b4"/>
+				<text><![CDATA[BARRIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="162" y="2" width="72" height="20" uuid="289c036d-ed37-4993-8dc1-97743e0023ac"/>
+				<text><![CDATA[CIUDAD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="259" y="2" width="100" height="20" uuid="58325a5d-a6aa-4ca6-a48f-d2a6911c1bf0"/>
+				<text><![CDATA[DEPARTAMENTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="394" y="2" width="100" height="20" uuid="caed4a2b-6823-4ad7-b44c-75dc2ae3cd03"/>
+				<text><![CDATA[PAIS]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="50" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="48" height="20" uuid="098e91ad-260b-47b1-a707-fc05a316deab"/>
+				<textFieldExpression><![CDATA[$F{idbarrios}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="66" y="1" width="76" height="49" uuid="34369028-a8a0-4c91-8569-5b0e89d9b42f"/>
+				<textFieldExpression><![CDATA[$F{barr_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="162" y="1" width="72" height="49" uuid="79ea007c-fec1-4ef1-b898-b8e0561d3c9b"/>
+				<textFieldExpression><![CDATA[$F{ciu_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="259" y="1" width="100" height="49" uuid="e42ccb73-25e4-4264-a0c1-440989cf8df1"/>
+				<textFieldExpression><![CDATA[$F{dep_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="394" y="2" width="100" height="48" uuid="34a22f9b-5f37-4abc-856b-19036d46a5da"/>
+				<textFieldExpression><![CDATA[$F{pai_nombre}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

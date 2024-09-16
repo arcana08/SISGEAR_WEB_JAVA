@@ -12,7 +12,7 @@ if ("listar".equals(listar)) {
         Statement st = null;
         ResultSet rs = null;
         st = conn.createStatement();
-        rs = st.executeQuery("SELECT s.idservicios, p.per_nombre,p.per_ci,s.estado,s.fecha_inicio,s.fecha_fin from servicios s,personas p  where s.idpersonas=p.idpersonas ;");
+        rs = st.executeQuery("SELECT s.idservicios, p.per_nombre, p.per_ci, s.estado, s.fecha_inicio, s.fecha_fin FROM servicios s, personas p WHERE s.idpersonas = p.idpersonas ORDER BY CASE WHEN s.estado = 'activo' THEN 0 ELSE 1 END, s.fecha_inicio ASC;");
         while (rs.next()) {
 %>      
 <tr>
@@ -21,7 +21,12 @@ if ("listar".equals(listar)) {
     <td><% out.print(rs.getString(4)); %></td>
     <td><% out.print(rs.getString(5)); %></td>
     <td><% out.print(rs.getString(6)); %></td>
-    <td><i class="fa fa-eye" style="color:green" data-bs-toggle="modal" data-bs-target="#exampleModald" onclick="rellenarjs('<% out.print(rs.getString(1)); %>', '<% out.print(rs.getString(2)); %>', '<% out.print(rs.getString(3)); %>')"></i></td>
+    <td><i class="fa fa-eye" style="color:green" data-bs-toggle="modal" data-bs-target="#exampleModald" onclick="rellenarjs('<% out.print(rs.getString(1)); %>', '<% out.print(rs.getString(2)); %>', '<% out.print(rs.getString(3)); %>')"></i>
+        <button class="btn btn-success btn-add" 
+                onclick="window.open('reportesv/Rservicios_1.jsp?id=<% out.print(rs.getString(1)); %>', '_blank')">
+            <i class="fas fa-print"></i>
+        </button>
+    </td>
 </tr>
 <%
         }
@@ -164,21 +169,46 @@ if ("listar".equals(listar)) {
         out.println("error PSQL " + e);
     }
 }
-else if ("eliminar".equals(listar)) {
-    String pkid = request.getParameter("pk");
-    
+else if ("finalizar".equals(listar)) {
+    String pkid = request.getParameter("pkid");
     try {
-        Statement st = null;
-        st = conn.createStatement();
-        st.executeUpdate("delete from usuarios where idusuarios ='"+pkid+"'");
-        //setTimeout(function () {
-            out.println("<div class='alert alert-success' role='alert'>Datos eliminados correctamente</div>");
-        //}, 2000);
+        int id = Integer.parseInt(pkid);
+        String sql = "UPDATE servicios SET estado = 'finalizado' WHERE idservicios = ?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setInt(1, id); 
         
-    } catch (Exception e) {
-        out.println("<div class='alert alert-danger' role='alert'>Los datos son utilizados en otra tabla</div>");
+        int rowsUpdated = ps.executeUpdate();
+        
+        if (rowsUpdated > 0) {
+            out.println("<div class='alert alert-success' role='alert'>Servicio finalizado correctamente</div>");
+        } else {
+            out.println("<div class='alert alert-danger' role='alert'>No se encontró el servicio a finalizar</div>");
+        }
+        
+    }  catch (Exception e) {
+        out.println("<div class='alert alert-danger' role='alert'>Error al finalizar el servicio: " + e.getMessage() + "</div>");
     }
-}else if ("listarp".equals(listar)) {
+}else if ("anular".equals(listar)) {
+    String pkid = request.getParameter("pkid");
+    try {
+        int id = Integer.parseInt(pkid);
+        String sql = "UPDATE servicios SET estado = 'anulado' WHERE idservicios = ?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setInt(1, id); 
+        
+        int rowsUpdated = ps.executeUpdate();
+        
+        if (rowsUpdated > 0) {
+            out.println("<div class='alert alert-success' role='alert'>Servicio anulado correctamente</div>");
+        } else {
+            out.println("<div class='alert alert-danger' role='alert'>No se encontró el servicio a anular</div>");
+        }
+        
+    }  catch (Exception e) {
+        out.println("<div class='alert alert-danger' role='alert'>Error al anular el servicio: " + e.getMessage() + "</div>");
+    }
+}
+else if ("listarp".equals(listar)) {
     try {
         Statement st = null;
         ResultSet rs = null;

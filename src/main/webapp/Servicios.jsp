@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SERVICIOS</title>
-     
+
 </head>
 
 <body>
@@ -20,6 +20,9 @@
                         <button class="btn btn-success btn-add" id="nuevo" data-bs-toggle="modal" data-bs-target="#exampleModal1" title="Agregar Nuevo">
                             <i class="fas fa-plus"></i> AGREGAR
                         </button>
+                        <a class="btn btn-primary btn-print" id="imprimir" href="reportesv/Rservicios.jsp" target="_blank" title="Imprimir Reporte">
+                            <i class="fas fa-print"></i> IMPRIMIR
+                        </a>
                     </div>
                 </div>
             </div>
@@ -179,8 +182,8 @@
                     <div id="mensajee"></div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" id="btncancelare" data-bs-dismiss="modal">CANCELAR</button>
-                        <input type="button" class="btn btn-success" id="btnterminar" value="FINALIZAR SEVICIO">
-                        <input type="button" class="btn btn-primary" id="btnanular" value="ANULAR SEVICIO">
+                        <input type="button" class="btn btn-success" id="btntermina" data-bs-toggle="modal" data-bs-target="#modalfinalizar" value="FINALIZAR SEVICIO">
+                        <input type="button" class="btn btn-primary" id="btnanula" data-bs-toggle="modal" data-bs-target="#modalanular" value="ANULAR SEVICIO">
                     </div>
                 </form>
             </div>
@@ -323,31 +326,42 @@
             </div>
         </div>
     </div>
-    <!-- eliminar dtos -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- confirmar accion -->
+    <div class="modal fade" id="modalfinalizar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">ELIMINAR REGISTRO</h5>
-                </div>
                 <div class="modal-body">
-                    <input type="hidden" id="listare" name="listare" value="eliminar">
-                    <input type="hidden" id="iedit" name="iedit" value="">
-                    EN VERDAD DESEA ELIMINAR EL REGISTRO?
+                    EN VERDAD DESEA FINALIZAR EL SERVICIO?
                 </div>
                 <div id="mensaje2"></div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCELAR</button>
-                    <button type="button" class="btn btn-primary" id="btneliminar" >ELIMINAR</button>
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModald">CANCELAR</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModald" id="btnfin" >FINALIZAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalanular" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    EN VERDAD DESEA ANULAR EL SERVICIO?
+                </div>
+                <div id="mensaje2"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModald">CANCELAR</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModald" id="btnanular" >ANULAR</button>
                 </div>
             </div>
         </div>
     </div>
 </body>
 <script src="js/jquery-3.7.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script-->
+<!--script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+<!--script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script-->
 
 <script>
     $(document).ready(function () {
@@ -359,6 +373,7 @@
 
         $("#boton").on('click', function () {
             procesarformulario();
+            rellenardatos();
         });
         $("#nuevo").on('click', function () {
             resetFormulario();
@@ -369,8 +384,13 @@
         $("#btncancelare").on('click', function () {
             resetFormulario();
         });
-        $("#btneliminar").on('click', function () {
-            eliminarRegistro();
+        $("#btnfin").on('click', function () {
+            finalizarservicio();
+            rellenardatos();
+        });
+        $("#btnanular").on('click', function () {
+            anularservicio();
+            rellenardatos();
         });
 
         $("#buscador").on('keyup', function () {
@@ -455,7 +475,7 @@
                 $("#mun").val('');
                 $("#nmun").val('');
                 $("#cantmun").val('');
-                
+
                 newRow.find(".fa-trash").click(function () {
                     $(this).closest('tr').remove();
                 });
@@ -483,7 +503,7 @@
                 $("#acc").val('');
                 $("#nacc").val('');
                 $("#cantacc").val('');
-                
+
                 newRow.find(".fa-trash").click(function () {
                     $(this).closest('tr').remove();
                 });
@@ -510,6 +530,40 @@
             type: 'POST',
             success: function (response) {
                 $("#detalles2 tbody").html(response);
+            }
+        });
+    }
+
+    function finalizarservicio() {
+        var pkid = $("#pkidd").val().trim();
+        $.ajax({
+            data: {listar: 'finalizar', pkid: pkid},
+            url: 'jsp/servicios.jsp',
+            type: 'POST',
+            success: function (response) {
+                $("#mensajee").html(response);
+                setTimeout(function () {
+                    $("#exampleModald").modal('hide');
+                    $("#mensajee").html("");
+                    rellenardatos();
+                }, 1500);
+            }
+        });
+    }
+    
+    function anularservicio() {
+        var pkid = $("#pkidd").val().trim();
+        $.ajax({
+            data: {listar: 'anular', pkid: pkid},
+            url: 'jsp/servicios.jsp',
+            type: 'POST',
+            success: function (response) {
+                $("#mensajee").html(response);
+                setTimeout(function () {
+                    $("#exampleModald").modal('hide');
+                    $("#mensajee").html("");
+                    rellenardatos();
+                }, 1500);
             }
         });
     }
@@ -548,6 +602,7 @@
                     setTimeout(function () {
                         $("#exampleModal1").modal('hide');
                         $("#mensaje").html("");
+                        rellenardatos();
                     }, 1500);
                 },
                 error: function (xhr, status, error) {
@@ -557,39 +612,11 @@
             });
         } else {
             $("#mensaje").html();
-                    setTimeout(function () {
-                        $("#mensaje").html("");
-                    }, 1500);
+            setTimeout(function () {
+                $("#mensaje").html("");
+            }, 1500);
             alert('No hay detalles para insertar');
         }
-    }
-
-
-
-
-
-    function eliminarRegistro() {
-        var listare = $("#listare").val().trim();
-        var pk = $("#iedit").val().trim();
-        $.ajax({
-            data: {listar: listare, pk: pk},
-            url: 'jsp/servicios.jsp',
-            type: 'post',
-            success: function (response) {
-                $("#mensaje2").html(response);
-                if (response.indexOf("Los datos son utilizados en otra tabla") !== -1) {
-                    setTimeout(function () {
-                        $("#mensaje2").html("");
-                    }, 3000);
-                } else {
-                    rellenardatos();
-                    setTimeout(function () {
-                        $("#exampleModal").modal('hide');
-                        $("#mensaje2").html("");
-                    }, 2000);
-                }
-            }
-        });
     }
 
     function resetFormulario() {

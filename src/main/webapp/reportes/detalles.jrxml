@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="bb15b5e7-1217-4e2e-8c8d-5ca6eec847c6">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT s.idservicios, d.idarticulo, d.cantidad, a.art_serie, t.tip_nombre, cal.cal_nombre, c.idcategorias, m.mar_nombre FROM detalle_servicio d, servicios s, articulo a, tipos t, calibres cal, clasificaciones c, marcas m, modelos mo WHERE d.idservicios = s.idservicios AND a.idcalibres = cal.idcalibres AND a.idtipo = t.idtipos and mo.idmarcas=m.idmarcas and a.idmodelos=mo.idmodelos AND c.idclasificaciones = a.idclasificaciones AND d.idarticulo = a.idarticulo and d.idservicios=$P{id};]]>
+	</queryString>
+	<field name="idservicios" class="java.lang.Integer"/>
+	<field name="idarticulo" class="java.lang.Integer"/>
+	<field name="cantidad" class="java.lang.String"/>
+	<field name="art_serie" class="java.lang.String"/>
+	<field name="tip_nombre" class="java.lang.String"/>
+	<field name="cal_nombre" class="java.lang.String"/>
+	<field name="idcategorias" class="java.lang.Integer"/>
+	<field name="mar_nombre" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="45" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="2" width="100" height="20" uuid="612e7dec-6ffb-4f54-9514-f6d9ccc3aac2"/>
+				<text><![CDATA[CODIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="105" y="2" width="100" height="20" uuid="8fc64890-1f24-4617-9d49-ca45d2b4965f"/>
+				<text><![CDATA[TIPO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="345" y="2" width="100" height="20" uuid="39961901-57eb-43bd-a0e6-20872366fc7b"/>
+				<text><![CDATA[CANTIDAD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="454" y="2" width="100" height="20" uuid="3d8827a5-eb08-45ea-9335-938a8f7c4fc9"/>
+				<text><![CDATA[SERIE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="213" y="2" width="100" height="20" uuid="fd594726-dd89-4b47-ab4c-fec6d9214e0c"/>
+				<text><![CDATA[MARCA]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement x="1" y="1" width="100" height="20" uuid="a147d27b-2e5f-4bb2-a823-909dfd337f34"/>
+				<textFieldExpression><![CDATA[$F{idarticulo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="105" y="2" width="100" height="20" uuid="e08942e9-f791-4348-bd40-f77d9d9087c3"/>
+				<textFieldExpression><![CDATA[$F{tip_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="345" y="2" width="100" height="20" uuid="2b3f5439-6fd1-4edc-aafe-430b2e4d60b6"/>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="454" y="4" width="100" height="20" uuid="754678c7-ae41-4982-a5c2-834c6f62d5de"/>
+				<textFieldExpression><![CDATA[$F{art_serie}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="213" y="2" width="100" height="20" uuid="1d7f807f-c93e-4dda-b3f6-699d14568227"/>
+				<textFieldExpression><![CDATA[$F{mar_nombre}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

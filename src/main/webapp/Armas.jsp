@@ -23,6 +23,11 @@
                         <button class="btn btn-success btn-add" id="nuevo" data-bs-toggle="modal" data-bs-target="#exampleModal1" title="Agregar Nuevo">
                             <i class="fas fa-plus"></i> AGREGAR
                         </button>
+                        <a class="btn btn-primary btn-print" id="imprimir" href="reportesv/Rarmas.jsp" target="_blank" title="Imprimir Reporte">
+                            <i class="fas fa-print"></i> IMPRIMIR
+                        </a>
+
+
                     </div>
                 </div>
             </div>
@@ -141,7 +146,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="modal fade" id="exampleModal3" aria-hidden="true" aria-labelledby="exampleModal3" tabindex="-1">
         <div class="modal-dialog">
             <div class="row">
@@ -258,6 +263,8 @@
     </div>
 </body>
 <script src="js/jquery-3.7.1.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
@@ -305,7 +312,7 @@
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
             });
         });
-        
+
         $("#buscadort").on('keyup', function () {
             var value = $(this).val().toLowerCase();
             $("#resultadot tbody tr").filter(function () {
@@ -331,8 +338,8 @@
         var tip = $("#tip").val().trim();
         var cal = $("#cal").val().trim();
         var mod = $("#mod").val().trim();
-        var tt = /^[a-zA-Z0-9 _Ò—]+$/; 
-        if (nombre === '' || clas === ''|| tip === ''|| cal === mod=== '') {
+        var tt = /^[a-zA-Z0-9 _Ò—]+$/;
+        if (nombre === '' || clas === '' || tip === '' || cal === mod === '') {
             $("#mensaje").html('<div class="alert alert-danger" role="alert">Por favor, completa todos los campos antes de enviar.</div>');
             setTimeout(function () {
                 $("#mensaje").html("");
@@ -357,7 +364,7 @@
                     setTimeout(function () {
                         $("#mensaje").html("");
                     }, 2000);
-                }else {
+                } else {
                     rellenardatos();
                     resetFormulario();
                     setTimeout(function () {
@@ -407,7 +414,7 @@
         $("#nmod").val("");
     }
 
-    function rellenarjs(p,p1,p2,p3,p4,p5,p6,p7,p8,p9,p10) {
+    function rellenarjs(p, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10) {
         $("#pkid").val(p);
         $("#nombre").val(p1);
         $("#clas").val(p2);
@@ -417,7 +424,7 @@
         $("#cal").val(p6);
         $("#ncal").val(p7);
         $("#mod").val(p8);
-        $("#nmod").val(p9+" - "+p10);
+        $("#nmod").val(p9 + " - " + p10);
         $("#listar").val("modificar");
     }
     function rellenardatosp() {
@@ -474,7 +481,7 @@
     }
     function rellenarjsm(a, b, c) {
         $("#mod").val(a);
-        $("#nmod").val(c+" - "+b);
+        $("#nmod").val(c + " - " + b);
     }
 </script>
 

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="24c8c876-2cde-4ba2-b3fb-d1c17fc71458">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT b.idbarrios, b.barr_nombre, c.idciudades,c.ciu_nombre,d.iddepartamentos, d.dep_nombre,p.idpaises,p.pai_nombre from departamentos d, ciudades c,paises p, barrios b where d.idpaises=p.idpaises and c.iddepartamentos=d.iddepartamentos and b.idciudades=c.idciudades and b.idbarrios=$P{id};]]>
+	</queryString>
+	<field name="idbarrios" class="java.lang.Integer"/>
+	<field name="barr_nombre" class="java.lang.String"/>
+	<field name="idciudades" class="java.lang.Integer"/>
+	<field name="ciu_nombre" class="java.lang.String"/>
+	<field name="iddepartamentos" class="java.lang.Integer"/>
+	<field name="dep_nombre" class="java.lang.String"/>
+	<field name="idpaises" class="java.lang.Integer"/>
+	<field name="pai_nombre" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="43" splitType="Stretch">
+			<staticText>
+				<reportElement x="224" y="0" width="117" height="20" uuid="eedbe643-0d33-4806-a895-7530ea6bf902"/>
+				<text><![CDATA[LISTADO DE BARRIOS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="48" height="20" uuid="a894b56b-a6e4-4961-9333-d185e408c0a5"/>
+				<text><![CDATA[CODIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="76" y="0" width="76" height="20" uuid="a18bb32f-5807-4c20-93a2-e360813fc14d"/>
+				<text><![CDATA[BARRIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="174" y="0" width="72" height="20" uuid="5047574b-14a5-4cbd-9e9e-f5bd76b5be20"/>
+				<text><![CDATA[CIUDAD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="269" y="0" width="100" height="20" uuid="20abb15f-b81e-4144-9c3e-fbb446d32ff4"/>
+				<text><![CDATA[DEPARTAMENTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="404" y="0" width="100" height="20" uuid="4df4d3d1-e927-4384-a6f8-f5ce68b58d04"/>
+				<text><![CDATA[PAIS]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="51" splitType="Stretch">
+			<textField>
+				<reportElement x="76" y="0" width="76" height="49" uuid="1533e127-b553-4fb0-b5ec-fa6acd42657f"/>
+				<textFieldExpression><![CDATA[$F{barr_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="48" height="20" uuid="79476517-3ffc-42ec-87db-6edde0396d71"/>
+				<textFieldExpression><![CDATA[$F{idbarrios}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="269" y="0" width="100" height="49" uuid="6add7e7b-851a-4afb-bc7f-06672822c7c6"/>
+				<textFieldExpression><![CDATA[$F{dep_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="174" y="0" width="72" height="49" uuid="182cddf9-be77-4498-9052-6626411b188e"/>
+				<textFieldExpression><![CDATA[$F{ciu_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="404" y="3" width="100" height="48" uuid="22b75a8d-369e-4a24-a5b2-537aad3396ed"/>
+				<textFieldExpression><![CDATA[$F{pai_nombre}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

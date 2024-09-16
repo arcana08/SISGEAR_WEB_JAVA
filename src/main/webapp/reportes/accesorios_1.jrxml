@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b57ba054-c668-40ce-847a-20f370d0ee48">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select a.idarticulo,a.art_cantidad,ct.cat_nombre,cf.cla_nombre,t.tip_nombre, c.cal_nombre,mc.mar_nombre,m.mod_nombre,a.art_cantidad,a.idclasificaciones,a.idtipo,a.idcalibres,a.idmodelos from articulo a,modelos m,marcas mc,tipos t, calibres c,clasificaciones cf,categorias ct where a.idtipo=t.idtipos and a.idclasificaciones=cf.idclasificaciones and cf.idcategorias=ct.idcategorias and a.idcalibres=c.idcalibres and a.idmodelos=m.idmodelos and m.idmarcas=mc.idmarcas and ct.idcategorias=2 and idarticulo=$P{id};]]>
+	</queryString>
+	<field name="idarticulo" class="java.lang.Integer"/>
+	<field name="art_cantidad" class="java.lang.Integer"/>
+	<field name="cat_nombre" class="java.lang.String"/>
+	<field name="cla_nombre" class="java.lang.String"/>
+	<field name="tip_nombre" class="java.lang.String"/>
+	<field name="cal_nombre" class="java.lang.String"/>
+	<field name="mar_nombre" class="java.lang.String"/>
+	<field name="mod_nombre" class="java.lang.String"/>
+	<field name="idclasificaciones" class="java.lang.Integer"/>
+	<field name="idtipo" class="java.lang.Integer"/>
+	<field name="idcalibres" class="java.lang.Integer"/>
+	<field name="idmodelos" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="207" y="25" width="141" height="20" uuid="f19d7ede-c4c8-4437-b3e8-9ee8c7963c93"/>
+				<text><![CDATA[LISTADO DE ACCESORIOS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="4" y="0" width="48" height="20" uuid="7d24579f-98a3-439c-ad47-97ededad1a3f"/>
+				<text><![CDATA[CODIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="489" y="2" width="70" height="20" uuid="d9a94401-bce8-4bcc-b958-961eb918b703"/>
+				<text><![CDATA[CANTIDAD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="320" y="2" width="63" height="20" uuid="2f035fe3-aad2-4d22-823c-c19533c2f3b8"/>
+				<text><![CDATA[MARCA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="409" y="2" width="51" height="20" uuid="34cf19ea-cdae-4c2b-bba9-93cb24fd6ce5"/>
+				<text><![CDATA[MODELO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="70" y="0" width="100" height="20" uuid="abb339c2-5eb4-437d-ba72-ea393970911d"/>
+				<text><![CDATA[CLASIFICACION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="195" y="2" width="100" height="20" uuid="b8d2de4a-1e71-40f7-8b93-42bed39f56dd"/>
+				<text><![CDATA[TIPO]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="36" splitType="Stretch">
+			<textField>
+				<reportElement x="4" y="3" width="48" height="20" uuid="1e219f85-e745-471e-a4f3-ea32886b12c0"/>
+				<textFieldExpression><![CDATA[$F{idarticulo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="409" y="3" width="51" height="31" uuid="51954ebd-2da4-456b-8b33-d77ccdcdda2a"/>
+				<textFieldExpression><![CDATA[$F{mod_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="70" y="0" width="100" height="34" uuid="3267f95a-58dc-4410-a246-f8bbd24ac311"/>
+				<textFieldExpression><![CDATA[$F{cla_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="195" y="0" width="100" height="30" uuid="bc8b1a81-7052-460b-bc4c-a71ddc7f313d"/>
+				<textFieldExpression><![CDATA[$F{tip_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="320" y="0" width="63" height="30" uuid="f52e7b7c-a224-44d0-bffa-289db4f6bd88"/>
+				<textFieldExpression><![CDATA[$F{mar_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="489" y="0" width="70" height="20" uuid="133d556a-8c24-4a16-91cb-76c167ef3947"/>
+				<textFieldExpression><![CDATA[$F{art_cantidad}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
